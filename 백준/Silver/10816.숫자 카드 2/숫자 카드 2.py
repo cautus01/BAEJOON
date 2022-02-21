@@ -6,5 +6,7 @@ card=list(map(int,input().split()))
 counter=Counter(card)
 m=int(input())
 m_list=list(map(int,input().split()))
+data=[]
 for i in range(m):
-    print(counter[m_list[i]],end=' ')
+    data.append(counter[m_list[i]])
+print(*data,end=' ')
