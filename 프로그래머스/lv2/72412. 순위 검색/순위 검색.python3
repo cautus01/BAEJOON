@@ -1,0 +1,23 @@
+from collections import defaultdict
+from itertools import combinations
+from bisect import bisect_left,bisect_right
+def  solution(info, query):
+    answer = []
+    dic=defaultdict(list)
+    for i in info: # info
+        lan,bf,js,food,score=i.split()
+        score=int(score)
+        dic[''].append(score)
+        for index in range(1,5):
+            for com in list(combinations([lan,bf,js,food],index)):
+                dic[''.join(list(com))].append(score)
+    remove_set=['and','-']
+    for k in list(dic.keys()):
+        dic[k].sort()
+    for q in query:
+        q=q.split()
+        q_arr=[i for i in q if i not in remove_set]
+        subject=''.join(q_arr[:-1])
+        score=int(q_arr[-1])
+        answer.append(len(dic[subject])-bisect_left(dic[subject],score))
+    return answer
