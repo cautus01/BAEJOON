@@ -1,0 +1,39 @@
+from itertools import combinations_with_replacement
+def change(answer,lion):
+    if answer==[]:
+        return lion
+    else:
+        for i in range(10,-1,-1):
+            if answer[i] == lion[i]:
+                continue
+            if answer[i]>lion[i]:
+                return answer
+            if answer[i]<lion[i]:
+                return lion
+def solution(n, info):
+    answer = []
+    max_value=0
+    combination=list(combinations_with_replacement([0,1,2,3,4,5,6,7,8,9,10],n)) # 라이온이 가능한 경우의 수
+    for com in combination: # 라이온이 가능한 경우의 수
+        info_lion = [0] * 11
+        for i in com:
+            info_lion[10-i]+=1
+        lion=0
+        peach=0
+        for i in range(11):
+            if info[i]==0 and info_lion[i]==0:
+                continue
+            if info[i]>=info_lion[i]:
+                peach+=10-i
+            if info[i] < info_lion[i]:
+                lion+=10-i
+        if lion>peach: # 라이언이 어피치보다 점수가 크면
+            if max_value==lion-peach: # 최대값과 라이언의 점수가 같으면
+                answer=change(answer,info_lion) # 리스트를 바꾼다.
+                continue
+            if max_value<lion-peach: # lion의 점수가 최대값보다 크다면
+                answer=info_lion
+                max_value=lion-peach
+    if answer==[]:
+        return [-1]
+    return answer
