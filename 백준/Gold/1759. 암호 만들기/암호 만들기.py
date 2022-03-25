@@ -12,8 +12,7 @@ for i in vowel:
         result=[i]+list(con)
         remain=[i for i in s if i not in result]
         for r in list(combinations(remain,l-3)):
-            answer=result + list(r)
-            password.add(''.join(sorted(answer)))
+            password.add(''.join(sorted(result + list(r))))
 password=sorted(password)
 for i in password:
     print(i)
