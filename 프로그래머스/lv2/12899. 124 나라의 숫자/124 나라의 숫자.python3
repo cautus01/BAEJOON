@@ -1,0 +1,11 @@
+def solution(n):
+    answer = ''
+    while n>0:
+        q,r=divmod(n,3)
+        if r==0:
+            q=q-1
+            r+=4
+        answer+=str(r)
+        n=q
+    answer=answer[::-1]
+    return answer
