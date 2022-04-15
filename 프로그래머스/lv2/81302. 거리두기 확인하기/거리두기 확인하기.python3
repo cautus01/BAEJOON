@@ -1,0 +1,40 @@
+from collections import deque
+
+def solution(places):
+    answer = []
+    dx=[0,0,1,-1]
+    dy=[1,-1,0,0]
+    def bfs(arr,x,y):
+        visited=[[-1]*5 for _ in range(5)]
+        q=deque()
+        q.append((x,y,0))
+        visited[x][y]=0
+        while q:
+            x,y,dir=q.popleft()
+            if dir>=3:
+                continue
+            if arr[x][y]=='P' and 0<dir<3:
+                return False
+            for i in range(4):
+                nx=x+dx[i]
+                ny=y+dy[i]
+                if nx<0 or ny<0 or nx>=5 or ny>=5:
+                    continue
+                if visited[nx][ny]!=-1 or arr[nx][ny]=='X':
+                    continue
+                visited[nx][ny]=visited[x][y]+1
+                q.append((nx,ny,visited[nx][ny]))
+
+    for place in places:
+        is_True = True
+        for i in range(5):
+            for j in range(5):
+                if place[i][j]=='P':
+                    if bfs(place,i,j)==False:
+                        is_True = False
+                        break
+        if  is_True == False:
+            answer.append(0)
+        else:
+            answer.append(1)
+    return answer
