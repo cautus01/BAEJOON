@@ -1,0 +1,16 @@
+from itertools import combinations
+from collections import defaultdict
+def solution(orders, course):
+    answer = []
+    for c in course:
+        max_value=0
+        dic_menu = defaultdict(int)
+        for order in orders:
+            for com in list(combinations(order,c)):
+                dic_menu[''.join(sorted(com))]+=1
+        if dic_menu.values():
+            max_value=max(dic_menu.values())
+        else:
+            continue
+        answer.extend([x for x,y in dic_menu.items() if y==max_value and y>=2])
+    return sorted(answer)
