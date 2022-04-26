@@ -1,11 +1,6 @@
-import sys
-input=sys.stdin.readline
-
 string=input()
 s=input()
-
-
-if s[:-1] in string[:-1]:
+if s in string:
     print(1)
 else:
     print(0)
