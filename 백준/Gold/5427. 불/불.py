@@ -45,14 +45,12 @@ for _ in range(t):
     visited1=[[-1]*m for _ in range(n)]
     visited2 = [[-1] * m for _ in range(n)]
     fire=[]
+    p_x,p_y=0,0
     for i in range(n):
         for j in range(m):
             if graph[i][j]=='*':
                 fire.append((i,j))
+            if graph[i][j] == '@':
+                p_x, p_y=i,j
     bfs_fire(fire)
-    is_True =0
-    for i in range(n):
-        for j in range(m):
-            if graph[i][j]=='@':
-                bfs_person(i,j)
-                break
+    bfs_person(p_x, p_y)
