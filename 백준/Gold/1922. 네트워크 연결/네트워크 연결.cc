@@ -35,7 +35,7 @@ int main() {
 	}
 	sort(edges, edges + m);
 	int cnt = 0;
-	int result = 0;
+	int result = 0; // 정수의 범위 생각
 
 	for (int i = 0;i < m;i++) {
 		int a, b, cost;
@@ -44,8 +44,8 @@ int main() {
 			result += cost;
 			union_parent(a, b);
 			cnt++;
+			if (cnt == n - 1) break;
 		}
-		if (cnt == n - 1) break;
 	}
 	cout << result;
 }
