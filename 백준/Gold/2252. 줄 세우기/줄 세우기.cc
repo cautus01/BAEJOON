@@ -1,30 +1,37 @@
-#include<stdio.h>
+#include <iostream>
+#include <vector>
 #include <queue>
-#include <algorithm>
+
 using namespace std;
 
-int indegree[32001];
-vector<int> v[32001];
+int n, m;
+vector<int> adj[32005];
+int d[32005];
 
 int main() {
-	int n, m, a, b;
-	scanf("%d %d", &n, &m);
-	for (int i = 0; i < m; i++) {
-		scanf("%d %d", &a, &b);
-		indegree[b]++;
-		v[a].push_back(b);
+	ios::sync_with_stdio(0);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> n >> m;
+	int a, b;
+	for (int i = 0;i < m;i++) {
+		cin >> a >> b;
+		adj[a].push_back(b);
+		d[b]++;
 	}
+	queue<int> Q;
 
-	queue<int> now;
-	for (int i = 1; i <= n; i++)
-		if (indegree[i] == 0) now.push(i);
-
-	while(!now.empty())	{
-		int i = now.front(); now.pop();
-		printf("%d ", i);
-
-		for(int j=0;j<v[i].size();j++)
-			if (--indegree[v[i][j]] == 0)
-				now.push(v[i][j]);
+	for (int i = 1;i <= n;i++) {
+		if (d[i] == 0)
+			Q.push(i);
+	}
+	while (!Q.empty()) {
+		int x = Q.front();Q.pop();
+		cout << x << " ";
+		for (int next : adj[x]) {
+			d[next]--;
+			if (d[next] == 0) Q.push(next);
+		}
 	}
 }
